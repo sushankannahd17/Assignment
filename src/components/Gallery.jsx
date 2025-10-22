@@ -1,13 +1,8 @@
 import React, { useState } from 'react'
-
-const sampleImages = [
-  "src/assets/Rectangle 5160.png",
-  "src/assets/Rectangle 5160.png",
-  "src/assets/Rectangle 5160.png"
-]
+import logo from "../assets/Rectangle 5160.png";
 
 export default function Gallery() {
-  const [images, setImages] = useState(sampleImages)
+  const [images, setImages] = useState(Array(3).fill(logo))
 
   function addImage() {
     const id = Math.floor(Math.random() * 1000)
@@ -35,10 +30,15 @@ export default function Gallery() {
           </div>
         </div>
       </div>
-      <div className='grid grid-cols-3 gap-4'>
+      <div className="grid grid-cols-3 gap-4">
         {images.map((src, i) => (
-          <div key={i} className='img-thumb overflow-hidden h-36 md:h-44'>
-            <img src={src} alt={`img-${i}`} className='w-full h-full object-cover'/>
+          <div key={i} className="img-thumb overflow-hidden h-36 md:h-44">
+            <img
+              src={src}
+              alt={`img-${i}`}
+              className="w-full h-full object-cover"
+              onError={(e) => (e.target.src = logo)} // fallback just in case
+            />
           </div>
         ))}
       </div>
